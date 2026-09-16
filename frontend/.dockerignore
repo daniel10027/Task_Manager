@@ -1,0 +1,9 @@
+node_modules
+dist
+dist-ssr
+.git
+*.local
+.env
+.env.*
+!.env.example
+coverage
