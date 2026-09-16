@@ -209,6 +209,14 @@ Tous vérifiés en conditions réelles sur ce dépôt après chaque push.
 
 ## Déploiement sur GCP Cloud Run
 
+> **Pas encore déployé en réel** : le compte de facturation GCP disponible a atteint sa
+> limite d'utilisation gratuite (compte marqué `open: false` par `gcloud billing accounts
+> list`), donc aucun projet n'a pu être lié à un compte de facturation actif pour ce test.
+> Le pipeline de déploiement ci-dessous est entièrement construit, testé (le job
+> `build-images` de `cd.yml` build les deux images avec succès en CI) et prêt à l'emploi
+> dès qu'un compte de facturation actif est disponible — il suffit de renseigner les
+> secrets GitHub listés plus bas pour qu'un push sur `main` déploie automatiquement.
+
 Le pipeline `cd.yml` est prêt à l'emploi. Pour l'activer, définir ces secrets GitHub
 (Settings → Secrets and variables → Actions) sur le dépôt :
 

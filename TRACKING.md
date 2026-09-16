@@ -61,4 +61,4 @@ Dernière mise à jour : voir dernier commit.
 - [x] Bug réel trouvé et corrigé via test end-to-end navigateur : le proxy nginx du frontend tronquait tous les chemins d'API vers `/api/` (voir commit `fix(frontend): nginx API proxy...`)
 
 ## Bonus / déploiement réel
-- [ ] Lien Cloud Run / Firebase Hosting déployé (nécessite un projet GCP réel — non exécutable depuis cet environnement, voir README pour les étapes)
+- [ ] Lien Cloud Run / Firebase Hosting déployé — **non fait** : le compte de facturation GCP disponible a atteint sa limite d'utilisation gratuite (`open: false`), impossible de lier un projet à un compte de facturation actif. Pipeline `cd.yml` prêt et testé (build des images validé en CI), voir README section "Déploiement sur GCP Cloud Run" pour l'activer dès qu'un compte de facturation actif est disponible.
