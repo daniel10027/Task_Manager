@@ -1,5 +1,10 @@
 # Task Manager
 
+[![Backend CI](https://github.com/daniel10027/Task_Manager/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/daniel10027/Task_Manager/actions/workflows/backend-ci.yml)
+[![Frontend CI](https://github.com/daniel10027/Task_Manager/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/daniel10027/Task_Manager/actions/workflows/frontend-ci.yml)
+[![Mobile CI](https://github.com/daniel10027/Task_Manager/actions/workflows/mobile-ci.yml/badge.svg)](https://github.com/daniel10027/Task_Manager/actions/workflows/mobile-ci.yml)
+[![CD](https://github.com/daniel10027/Task_Manager/actions/workflows/cd.yml/badge.svg)](https://github.com/daniel10027/Task_Manager/actions/workflows/cd.yml)
+
 Application complète de gestion de tâches : API REST Spring Boot, interface web React,
 application mobile Flutter, le tout partageant le même contrat d'API, avec CI/CD et
 déploiement Docker/GCP prêts à l'emploi.

@@ -49,11 +49,16 @@ Dernière mise à jour : voir dernier commit.
 - [x] Pipeline CD déploiement GCP Cloud Run (prêt à l'emploi, activé par secrets GitHub) — `.github/workflows/cd.yml`
 - [x] `docker-compose.yml` pour lancer tout en local — vérifié avec un flux complet (inscription → CRUD → filtres) en conditions réelles
 - [x] Script / commande unique pour lancer le projet en local — `make up` / `./scripts/dev.sh`
+- [x] Les 4 pipelines confirmés verts sur GitHub Actions (pas seulement en local) — 2 bugs d'environnement CI réels trouvés et corrigés en observant les runs réels (Node 20 incompatible avec vitest 5/jsdom 30 → Node 24 ; `dart format` jamais appliqué → tout le module `mobile/` reformaté)
 
 ## Documentation
 - [x] `CONTRACT.md` — contrat d'API partagé
 - [x] `README.md` complet (installation, architecture, choix techniques, captures d'écran, lien déployé)
 - [x] `TRACKING.md` (ce fichier) tenu à jour
+
+## Qualité / revue
+- [x] Audit manuel sécurité/correction (JWT, scoping des tâches par utilisateur, gestion d'erreurs, validation, logique de synchronisation hors-ligne mobile) — aucun problème trouvé au-delà de ceux déjà corrigés
+- [x] Bug réel trouvé et corrigé via test end-to-end navigateur : le proxy nginx du frontend tronquait tous les chemins d'API vers `/api/` (voir commit `fix(frontend): nginx API proxy...`)
 
 ## Bonus / déploiement réel
 - [ ] Lien Cloud Run / Firebase Hosting déployé (nécessite un projet GCP réel — non exécutable depuis cet environnement, voir README pour les étapes)
