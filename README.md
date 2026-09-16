@@ -15,18 +15,53 @@ partagé entre les trois clients.
 
 ## Aperçu
 
-| Web | Mobile |
+Captures d'écran prises sur l'application réellement lancée (stack Docker Compose pour le
+web, émulateur Android pour le mobile) — pas des maquettes.
+
+### Web
+
+| Connexion | Inscription | Dashboard vide |
+|---|---|---|
+| ![Login](docs/screenshots/web-01-login.png) | ![Register](docs/screenshots/web-02-register.png) | ![Empty](docs/screenshots/web-03-dashboard-empty.png) |
+
+| Dashboard avec tâches | Filtrage par statut | Recherche |
+|---|---|---|
+| ![Dashboard](docs/screenshots/web-04-dashboard-tasks.png) | ![Filter](docs/screenshots/web-05-filter.png) | ![Search](docs/screenshots/web-06-search.png) |
+
+| Édition d'une tâche | Confirmation de suppression | Page 404 |
+|---|---|---|
+| ![Task form](docs/screenshots/web-07-task-form.png) | ![Delete confirm](docs/screenshots/web-08-delete-confirm.png) | ![404](docs/screenshots/web-09-not-found.png) |
+
+### Mobile
+
+Onboarding liquid-swipe (première ouverture) :
+
+| Page 1 | Page 2 | Page 3 |
+|---|---|---|
+| ![Onboarding 1](docs/screenshots/mobile-01-onboarding.png) | ![Onboarding 2](docs/screenshots/mobile-02-onboarding.png) | ![Onboarding 3](docs/screenshots/mobile-03-onboarding.png) |
+
+Authentification :
+
+| Connexion | Inscription |
 |---|---|
-| ![Dashboard](docs/screenshots/03-dashboard-tasks.png) | Onboarding liquid-swipe, mode hors-ligne, animations — voir `mobile/README.md` |
+| ![Login](docs/screenshots/mobile-04-login.png) | ![Register](docs/screenshots/mobile-05-register.png) |
 
-<details>
-<summary>Plus de captures d'écran (web)</summary>
+Tâches — liste, création, filtrage, recherche :
 
-| Inscription | Dashboard vide | Filtrage par statut | Recherche |
-|---|---|---|---|
-| ![Register](docs/screenshots/01-register.png) | ![Empty](docs/screenshots/02-dashboard-empty.png) | ![Filter](docs/screenshots/04-filter-in-progress.png) | ![Search](docs/screenshots/05-search.png) |
+| Dashboard vide | Nouvelle tâche | Dashboard avec tâches |
+|---|---|---|
+| ![Empty](docs/screenshots/mobile-06-dashboard-empty.png) | ![Task form](docs/screenshots/mobile-07-task-form.png) | ![Tasks](docs/screenshots/mobile-08-dashboard-tasks.png) |
 
-</details>
+| Filtrage par statut | Recherche |
+|---|---|
+| ![Filter](docs/screenshots/mobile-09-filter.png) | ![Search](docs/screenshots/mobile-10-search.png) |
+
+Mode hors-ligne en action (Wi-Fi + données coupées sur l'émulateur, tâche créée hors-ligne,
+puis reconnexion et synchronisation automatique) :
+
+| Hors ligne — 1 tâche en attente | Reconnecté — synchronisé |
+|---|---|
+| ![Offline](docs/screenshots/mobile-11-offline.png) | ![Synced](docs/screenshots/mobile-12-synced.png) |
 
 ## Stack technique
 
