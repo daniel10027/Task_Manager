@@ -52,7 +52,10 @@ class PendingOpsQueue {
     return _box.put(op.opId, op);
   }
 
-  Future<void> enqueueUpdate(String taskKey, Map<String, dynamic> payload) async {
+  Future<void> enqueueUpdate(
+    String taskKey,
+    Map<String, dynamic> payload,
+  ) async {
     final existing = _findFor(taskKey);
     if (existing != null) {
       // A create or update already queued for this task: coalesce by
@@ -108,14 +111,17 @@ class PendingOpsQueue {
     final key = _hiveKeyFor(opId);
     if (key == null) return;
     final op = _box.get(key)!;
-    await _box.put(key, PendingOperation(
-      opId: op.opId,
-      type: op.type,
-      taskKey: newTaskKey,
-      payload: op.payload,
-      createdAt: op.createdAt,
-      retryCount: op.retryCount,
-    ));
+    await _box.put(
+      key,
+      PendingOperation(
+        opId: op.opId,
+        type: op.type,
+        taskKey: newTaskKey,
+        payload: op.payload,
+        createdAt: op.createdAt,
+        retryCount: op.retryCount,
+      ),
+    );
   }
 
   Future<void> incrementRetry(String opId) async {

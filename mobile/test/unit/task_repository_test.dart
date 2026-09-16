@@ -53,48 +53,60 @@ void main() {
     expect(created.isSynced, isFalse);
     expect(repository.pendingCount, 1);
     expect(repository.readCached().single.title, 'Buy milk');
-    verifyNever(() => taskApi.create(
-          title: any(named: 'title'),
-          description: any(named: 'description'),
-          status: any(named: 'status'),
-        ));
-  });
-
-  test('reconnecting and syncing drains the queue and reconciles the id', () async {
-    when(() => connectivity.isOnline).thenReturn(false);
-    final created = await repository.createTask(
-      title: 'Buy milk',
-      description: '',
-      status: TaskStatus.todo,
+    verifyNever(
+      () => taskApi.create(
+        title: any(named: 'title'),
+        description: any(named: 'description'),
+        status: any(named: 'status'),
+      ),
     );
-    expect(repository.pendingCount, 1);
+  });
 
-    // Connectivity returns.
-    when(() => connectivity.isOnline).thenReturn(true);
-    final serverTask = buildTask(localId: 'x', id: 55, title: 'Buy milk');
-    when(() => taskApi.create(
+  test(
+    'reconnecting and syncing drains the queue and reconciles the id',
+    () async {
+      when(() => connectivity.isOnline).thenReturn(false);
+      final created = await repository.createTask(
+        title: 'Buy milk',
+        description: '',
+        status: TaskStatus.todo,
+      );
+      expect(repository.pendingCount, 1);
+
+      // Connectivity returns.
+      when(() => connectivity.isOnline).thenReturn(true);
+      final serverTask = buildTask(localId: 'x', id: 55, title: 'Buy milk');
+      when(
+        () => taskApi.create(
           title: any(named: 'title'),
           description: any(named: 'description'),
           status: any(named: 'status'),
-        )).thenAnswer((_) async => serverTask);
+        ),
+      ).thenAnswer((_) async => serverTask);
 
-    await repository.sync();
+      await repository.sync();
 
-    expect(repository.pendingCount, 0);
-    final cached = repository.readCached();
-    expect(cached.single.id, 55);
-    expect(cached.any((t) => t.cacheKey == created.cacheKey), isFalse,
-        reason: 'the temporary local-id entry should have been replaced');
-  });
+      expect(repository.pendingCount, 0);
+      final cached = repository.readCached();
+      expect(cached.single.id, 55);
+      expect(
+        cached.any((t) => t.cacheKey == created.cacheKey),
+        isFalse,
+        reason: 'the temporary local-id entry should have been replaced',
+      );
+    },
+  );
 
   test('creating while online calls the API directly and does not enqueue anything', () async {
     when(() => connectivity.isOnline).thenReturn(true);
     final serverTask = buildTask(localId: 'x', id: 7, title: 'Online task');
-    when(() => taskApi.create(
-          title: any(named: 'title'),
-          description: any(named: 'description'),
-          status: any(named: 'status'),
-        )).thenAnswer((_) async => serverTask);
+    when(
+      () => taskApi.create(
+        title: any(named: 'title'),
+        description: any(named: 'description'),
+        status: any(named: 'status'),
+      ),
+    ).thenAnswer((_) async => serverTask);
 
     final created = await repository.createTask(
       title: 'Online task',

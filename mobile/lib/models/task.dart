@@ -86,20 +86,20 @@ class Task {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'description': description,
-        'status': status.wire,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
-      };
+    'id': id,
+    'title': title,
+    'description': description,
+    'status': status.wire,
+    'createdAt': createdAt.toIso8601String(),
+    'updatedAt': updatedAt.toIso8601String(),
+  };
 
   /// Request body for POST/PUT per CONTRACT.md.
   Map<String, dynamic> toRequestJson() => {
-        'title': title,
-        'description': description,
-        'status': status.wire,
-      };
+    'title': title,
+    'description': description,
+    'status': status.wire,
+  };
 
   Task copyWith({
     String? localId,

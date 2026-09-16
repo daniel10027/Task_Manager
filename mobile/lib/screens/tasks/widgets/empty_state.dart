@@ -18,19 +18,21 @@ class EmptyState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 96,
-              height: 96,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.inbox_outlined,
-                size: 44,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ).animate().fadeIn(duration: 350.ms).scale(
-                begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
+                  width: 96,
+                  height: 96,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.inbox_outlined,
+                    size: 44,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                )
+                .animate()
+                .fadeIn(duration: 350.ms)
+                .scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
             const SizedBox(height: AppSpacing.lg),
             Text(
               title,
@@ -42,8 +44,8 @@ class EmptyState extends StatelessWidget {
               message,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ).animate().fadeIn(delay: 150.ms, duration: 300.ms),
           ],
         ),

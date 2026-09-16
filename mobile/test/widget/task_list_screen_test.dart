@@ -16,9 +16,24 @@ void main() {
   late MockPendingOpsQueue pendingOpsQueue;
 
   final tasks = [
-    buildTask(localId: '1', id: 1, title: 'Buy milk', description: 'From the store'),
-    buildTask(localId: '2', id: 2, title: 'Write report', status: TaskStatus.inProgress),
-    buildTask(localId: '3', id: 3, title: 'Clean house', status: TaskStatus.done),
+    buildTask(
+      localId: '1',
+      id: 1,
+      title: 'Buy milk',
+      description: 'From the store',
+    ),
+    buildTask(
+      localId: '2',
+      id: 2,
+      title: 'Write report',
+      status: TaskStatus.inProgress,
+    ),
+    buildTask(
+      localId: '3',
+      id: 3,
+      title: 'Clean house',
+      status: TaskStatus.done,
+    ),
   ];
 
   setUpAll(() {
@@ -30,22 +45,26 @@ void main() {
     connectivity = MockConnectivityService();
     pendingOpsQueue = MockPendingOpsQueue();
 
-    when(() => connectivity.onStatusChange).thenAnswer((_) => const Stream.empty());
+    when(() => connectivity.onStatusChange)
+        .thenAnswer((_) => const Stream.empty());
     when(() => connectivity.isOnline).thenReturn(true);
     when(() => connectivity.refresh()).thenAnswer((_) async => true);
     when(() => pendingOpsQueue.watch()).thenAnswer((_) => const Stream.empty());
     when(() => pendingOpsQueue.pendingCount).thenReturn(0);
     when(() => repository.sync()).thenAnswer((_) async {});
 
-    when(() => repository.fetchTasks(
-          status: any(named: 'status'),
-          search: any(named: 'search'),
-        )).thenAnswer((invocation) async {
+    when(
+      () => repository.fetchTasks(
+        status: any(named: 'status'),
+        search: any(named: 'search'),
+      ),
+    ).thenAnswer((invocation) async {
       final status = invocation.namedArguments[#status] as TaskStatus?;
       final search = invocation.namedArguments[#search] as String?;
       return tasks.where((t) {
         final matchesStatus = status == null || t.status == status;
-        final matchesSearch = search == null ||
+        final matchesSearch =
+            search == null ||
             search.isEmpty ||
             t.title.toLowerCase().contains(search.toLowerCase()) ||
             t.description.toLowerCase().contains(search.toLowerCase());
@@ -114,7 +133,10 @@ void main() {
     await tester.pumpWidget(buildApp());
     await settle(tester);
 
-    await tester.enterText(find.byKey(const Key('task_search_field')), 'nonexistent');
+    await tester.enterText(
+      find.byKey(const Key('task_search_field')),
+      'nonexistent',
+    );
     await tester.pump(const Duration(milliseconds: 500));
     await settle(tester);
 

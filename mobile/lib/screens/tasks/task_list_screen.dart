@@ -22,7 +22,8 @@ class TaskListScreen extends StatefulWidget {
   State<TaskListScreen> createState() => _TaskListScreenState();
 }
 
-class _TaskListScreenState extends State<TaskListScreen> with SingleTickerProviderStateMixin {
+class _TaskListScreenState extends State<TaskListScreen>
+    with SingleTickerProviderStateMixin {
   final _searchController = TextEditingController();
   Timer? _debounce;
   late final AnimationController _fabController;
@@ -63,21 +64,21 @@ class _TaskListScreenState extends State<TaskListScreen> with SingleTickerProvid
     final result = await showTaskFormSheet(context);
     if (result == null || !mounted) return;
     await context.read<TaskListProvider>().createTask(
-          title: result.title,
-          description: result.description,
-          status: result.status,
-        );
+      title: result.title,
+      description: result.description,
+      status: result.status,
+    );
   }
 
   Future<void> _openEditForm(Task task) async {
     final result = await showTaskFormSheet(context, task: task);
     if (result == null || !mounted) return;
     await context.read<TaskListProvider>().updateTask(
-          task,
-          title: result.title,
-          description: result.description,
-          status: result.status,
-        );
+      task,
+      title: result.title,
+      description: result.description,
+      status: result.status,
+    );
   }
 
   Future<void> _deleteWithUndo(Task task) async {
@@ -121,7 +122,10 @@ class _TaskListScreenState extends State<TaskListScreen> with SingleTickerProvid
           Padding(
             padding: const EdgeInsets.only(right: AppSpacing.sm),
             child: Center(
-              child: StatusPill(isOnline: provider.isOnline, pendingCount: provider.pendingCount),
+              child: StatusPill(
+                isOnline: provider.isOnline,
+                pendingCount: provider.pendingCount,
+              ),
             ),
           ),
           IconButton(
@@ -134,7 +138,12 @@ class _TaskListScreenState extends State<TaskListScreen> with SingleTickerProvid
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 0),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.md,
+              AppSpacing.sm,
+              AppSpacing.md,
+              0,
+            ),
             child: TextField(
               key: const Key('task_search_field'),
               controller: _searchController,
@@ -188,10 +197,12 @@ class _TaskListScreenState extends State<TaskListScreen> with SingleTickerProvid
             SizedBox(
               height: 420,
               child: EmptyState(
-                title: provider.search.isNotEmpty || provider.filterStatus != null
+                title:
+                    provider.search.isNotEmpty || provider.filterStatus != null
                     ? 'Aucune tâche ne correspond'
                     : 'Aucune tâche pour le moment',
-                message: provider.search.isNotEmpty || provider.filterStatus != null
+                message:
+                    provider.search.isNotEmpty || provider.filterStatus != null
                     ? 'Essayez un autre filtre ou une autre recherche.'
                     : 'Appuyez sur + pour créer votre première tâche.',
               ),

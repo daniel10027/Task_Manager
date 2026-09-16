@@ -10,14 +10,15 @@ class TaskApi {
 
   Future<List<Task>> list({TaskStatus? status, String? search}) async {
     try {
-      final response = await _dio.get('/api/tasks', queryParameters: {
-        if (status != null) 'status': status.wire,
-        if (search != null && search.isNotEmpty) 'search': search,
-      });
+      final response = await _dio.get(
+        '/api/tasks',
+        queryParameters: {
+          if (status != null) 'status': status.wire,
+          if (search != null && search.isNotEmpty) 'search': search,
+        },
+      );
       final data = response.data as List;
-      return data
-          .map((e) => Task.fromJson(e as Map<String, dynamic>))
-          .toList();
+      return data.map((e) => Task.fromJson(e as Map<String, dynamic>)).toList();
     } catch (e) {
       throw toApiException(e);
     }
@@ -29,11 +30,14 @@ class TaskApi {
     required TaskStatus status,
   }) async {
     try {
-      final response = await _dio.post('/api/tasks', data: {
-        'title': title,
-        'description': description,
-        'status': status.wire,
-      });
+      final response = await _dio.post(
+        '/api/tasks',
+        data: {
+          'title': title,
+          'description': description,
+          'status': status.wire,
+        },
+      );
       return Task.fromJson(response.data as Map<String, dynamic>);
     } catch (e) {
       throw toApiException(e);
@@ -47,11 +51,14 @@ class TaskApi {
     required TaskStatus status,
   }) async {
     try {
-      final response = await _dio.put('/api/tasks/$id', data: {
-        'title': title,
-        'description': description,
-        'status': status.wire,
-      });
+      final response = await _dio.put(
+        '/api/tasks/$id',
+        data: {
+          'title': title,
+          'description': description,
+          'status': status.wire,
+        },
+      );
       return Task.fromJson(response.data as Map<String, dynamic>);
     } catch (e) {
       throw toApiException(e);

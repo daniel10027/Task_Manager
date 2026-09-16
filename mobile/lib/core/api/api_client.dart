@@ -24,13 +24,16 @@ Dio createApiClient({
   String? baseUrl,
   Dio? dio,
 }) {
-  final client = dio ??
-      Dio(BaseOptions(
-        baseUrl: baseUrl ?? resolveApiBaseUrl(),
-        connectTimeout: const Duration(seconds: 15),
-        receiveTimeout: const Duration(seconds: 15),
-        headers: {'Content-Type': 'application/json'},
-      ));
+  final client =
+      dio ??
+      Dio(
+        BaseOptions(
+          baseUrl: baseUrl ?? resolveApiBaseUrl(),
+          connectTimeout: const Duration(seconds: 15),
+          receiveTimeout: const Duration(seconds: 15),
+          headers: {'Content-Type': 'application/json'},
+        ),
+      );
 
   client.interceptors.addAll([
     InterceptorsWrapper(

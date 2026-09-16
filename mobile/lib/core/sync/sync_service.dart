@@ -22,9 +22,9 @@ class SyncService {
     required TaskApi taskApi,
     required PendingOpsQueue queue,
     required TaskCache cache,
-  })  : _taskApi = taskApi,
-        _queue = queue,
-        _cache = cache;
+  }) : _taskApi = taskApi,
+       _queue = queue,
+       _cache = cache;
 
   final TaskApi _taskApi;
   final PendingOpsQueue _queue;

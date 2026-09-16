@@ -20,11 +20,11 @@ class TaskRepository {
     required TaskCache cache,
     required PendingOpsQueue queue,
     required SyncService syncService,
-  })  : _taskApi = taskApi,
-        _connectivity = connectivity,
-        _cache = cache,
-        _queue = queue,
-        _syncService = syncService;
+  }) : _taskApi = taskApi,
+       _connectivity = connectivity,
+       _cache = cache,
+       _queue = queue,
+       _syncService = syncService;
 
   final TaskApi _taskApi;
   final ConnectivityService _connectivity;
@@ -43,9 +43,11 @@ class TaskRepository {
     if (search != null && search.trim().isNotEmpty) {
       final q = search.trim().toLowerCase();
       tasks = tasks
-          .where((t) =>
-              t.title.toLowerCase().contains(q) ||
-              t.description.toLowerCase().contains(q))
+          .where(
+            (t) =>
+                t.title.toLowerCase().contains(q) ||
+                t.description.toLowerCase().contains(q),
+          )
           .toList();
     }
     return tasks;
@@ -76,8 +78,11 @@ class TaskRepository {
     required TaskStatus status,
   }) async {
     if (_connectivity.isOnline) {
-      final created =
-          await _taskApi.create(title: title, description: description, status: status);
+      final created = await _taskApi.create(
+        title: title,
+        description: description,
+        status: status,
+      );
       await _cache.put(created);
       return created;
     }
@@ -109,15 +114,22 @@ class TaskRepository {
       updatedAt: DateTime.now(),
     );
     if (_connectivity.isOnline && task.isSynced) {
-      final updated =
-          await _taskApi.update(task.id!, title: title, description: description, status: status);
+      final updated = await _taskApi.update(
+        task.id!,
+        title: title,
+        description: description,
+        status: status,
+      );
       await _cache.put(updated);
       return updated;
     }
     // Offline (or online but not yet synced, e.g. mid-drain): write local
     // and enqueue/coalesce.
     await _cache.put(updatedLocal);
-    await _queue.enqueueUpdate(updatedLocal.cacheKey, updatedLocal.toRequestJson());
+    await _queue.enqueueUpdate(
+      updatedLocal.cacheKey,
+      updatedLocal.toRequestJson(),
+    );
     return updatedLocal;
   }
 

@@ -63,9 +63,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Rejoignez Task Manager',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ).animate().fadeIn(duration: 350.ms).slideY(begin: 0.15, end: 0),
+                      'Rejoignez Task Manager',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    )
+                    .animate()
+                    .fadeIn(duration: 350.ms)
+                    .slideY(begin: 0.15, end: 0),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   'Créez votre compte pour commencer à organiser vos tâches.',
@@ -73,57 +76,68 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ).animate().fadeIn(delay: 80.ms, duration: 350.ms),
                 const SizedBox(height: AppSpacing.xl),
                 TextFormField(
-                  controller: _fullNameController,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    labelText: 'Nom complet',
-                    prefixIcon: Icon(Icons.person_outline),
-                  ),
-                  validator: (value) {
-                    final v = value?.trim() ?? '';
-                    if (v.length < 2 || v.length > 100) {
-                      return 'Le nom doit contenir entre 2 et 100 caractères';
-                    }
-                    return null;
-                  },
-                ).animate().fadeIn(delay: 120.ms, duration: 300.ms).slideX(begin: 0.05, end: 0),
+                      controller: _fullNameController,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        labelText: 'Nom complet',
+                        prefixIcon: Icon(Icons.person_outline),
+                      ),
+                      validator: (value) {
+                        final v = value?.trim() ?? '';
+                        if (v.length < 2 || v.length > 100) {
+                          return 'Le nom doit contenir entre 2 et 100 caractères';
+                        }
+                        return null;
+                      },
+                    )
+                    .animate()
+                    .fadeIn(delay: 120.ms, duration: 300.ms)
+                    .slideX(begin: 0.05, end: 0),
                 const SizedBox(height: AppSpacing.md),
                 TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email_outlined),
-                  ),
-                  validator: (value) {
-                    final v = value?.trim() ?? '';
-                    final regex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
-                    if (!regex.hasMatch(v)) return 'Email invalide';
-                    return null;
-                  },
-                ).animate().fadeIn(delay: 160.ms, duration: 300.ms).slideX(begin: 0.05, end: 0),
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        labelText: 'Email',
+                        prefixIcon: Icon(Icons.email_outlined),
+                      ),
+                      validator: (value) {
+                        final v = value?.trim() ?? '';
+                        final regex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                        if (!regex.hasMatch(v)) return 'Email invalide';
+                        return null;
+                      },
+                    )
+                    .animate()
+                    .fadeIn(delay: 160.ms, duration: 300.ms)
+                    .slideX(begin: 0.05, end: 0),
                 const SizedBox(height: AppSpacing.md),
                 TextFormField(
-                  controller: _passwordController,
-                  obscureText: _obscure,
-                  textInputAction: TextInputAction.done,
-                  onFieldSubmitted: (_) => _submit(),
-                  decoration: InputDecoration(
-                    labelText: 'Mot de passe',
-                    prefixIcon: const Icon(Icons.lock_outline),
-                    suffixIcon: IconButton(
-                      icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
-                      onPressed: () => setState(() => _obscure = !_obscure),
-                    ),
-                  ),
-                  validator: (value) {
-                    if ((value ?? '').length < 8) {
-                      return 'Minimum 8 caractères';
-                    }
-                    return null;
-                  },
-                ).animate().fadeIn(delay: 200.ms, duration: 300.ms).slideX(begin: 0.05, end: 0),
+                      controller: _passwordController,
+                      obscureText: _obscure,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _submit(),
+                      decoration: InputDecoration(
+                        labelText: 'Mot de passe',
+                        prefixIcon: const Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscure ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () => setState(() => _obscure = !_obscure),
+                        ),
+                      ),
+                      validator: (value) {
+                        if ((value ?? '').length < 8) {
+                          return 'Minimum 8 caractères';
+                        }
+                        return null;
+                      },
+                    )
+                    .animate()
+                    .fadeIn(delay: 200.ms, duration: 300.ms)
+                    .slideX(begin: 0.05, end: 0),
                 const SizedBox(height: AppSpacing.xl),
                 FilledButton(
                   onPressed: auth.isLoading ? null : _submit,
@@ -131,7 +145,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ? const SizedBox(
                           height: 22,
                           width: 22,
-                          child: CircularProgressIndicator(strokeWidth: 2.5, color: Colors.white),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            color: Colors.white,
+                          ),
                         )
                       : const Text("S'inscrire"),
                 ).animate().fadeIn(delay: 240.ms, duration: 300.ms),

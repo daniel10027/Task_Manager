@@ -12,9 +12,11 @@ enum AuthStatus { unknown, authenticated, unauthenticated }
 /// Holds auth/session state: current [user], JWT persistence, and
 /// register/login/logout actions against [AuthApi].
 class AuthProvider extends ChangeNotifier {
-  AuthProvider({required AuthApi authApi, required SecureStorageService secureStorage})
-      : _authApi = authApi,
-        _secureStorage = secureStorage;
+  AuthProvider({
+    required AuthApi authApi,
+    required SecureStorageService secureStorage,
+  }) : _authApi = authApi,
+       _secureStorage = secureStorage;
 
   final AuthApi _authApi;
   final SecureStorageService _secureStorage;
@@ -45,15 +47,19 @@ class AuthProvider extends ChangeNotifier {
     required String password,
     required String fullName,
   }) {
-    return _runAuthAction(() => _authApi.register(
-          email: email,
-          password: password,
-          fullName: fullName,
-        ));
+    return _runAuthAction(
+      () => _authApi.register(
+        email: email,
+        password: password,
+        fullName: fullName,
+      ),
+    );
   }
 
   Future<bool> login({required String email, required String password}) {
-    return _runAuthAction(() => _authApi.login(email: email, password: password));
+    return _runAuthAction(
+      () => _authApi.login(email: email, password: password),
+    );
   }
 
   Future<bool> _runAuthAction(Future<AuthResponse> Function() action) async {

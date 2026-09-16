@@ -16,14 +16,29 @@ class AppTheme {
     final baseTextTheme = GoogleFonts.interTextTheme();
     final textTheme = baseTextTheme.copyWith(
       displayLarge: GoogleFonts.manrope(
-          fontSize: 34, fontWeight: FontWeight.w800, letterSpacing: -0.5),
+        fontSize: 34,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.5,
+      ),
       displayMedium: GoogleFonts.manrope(
-          fontSize: 28, fontWeight: FontWeight.w800, letterSpacing: -0.5),
+        fontSize: 28,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.5,
+      ),
       headlineMedium: GoogleFonts.manrope(
-          fontSize: 22, fontWeight: FontWeight.w700, letterSpacing: -0.3),
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.3,
+      ),
       headlineSmall: GoogleFonts.manrope(
-          fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: -0.2),
-      titleMedium: GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w700),
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.2,
+      ),
+      titleMedium: GoogleFonts.manrope(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      ),
       bodyLarge: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w400),
       bodyMedium: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w400),
       labelLarge: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
@@ -46,7 +61,9 @@ class AppTheme {
         filled: true,
         fillColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
         contentPadding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.md, vertical: AppSpacing.md),
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.md,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
           borderSide: BorderSide.none,
@@ -88,9 +105,14 @@ class AppTheme {
         ),
         side: BorderSide.none,
         selectedColor: colorScheme.primary,
-        backgroundColor: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        backgroundColor: colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.5,
+        ),
         labelStyle: textTheme.labelLarge,
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.xs,
+        ),
       ),
       cardTheme: CardThemeData(
         elevation: 0,

@@ -23,22 +23,19 @@ class _OnboardingPage {
 const _pages = [
   _OnboardingPage(
     title: 'Organisez tout, simplement',
-    description:
-        'Créez, classez et suivez toutes vos tâches en un seul endroit, avec une interface pensée pour aller vite.',
+    description: 'Créez, classez et suivez toutes vos tâches en un seul endroit, avec une interface pensée pour aller vite.',
     icon: Icons.checklist_rounded,
     background: Color(0xFF5B5BF5),
   ),
   _OnboardingPage(
     title: 'Toujours disponible, même hors ligne',
-    description:
-        'Continuez à travailler sans connexion : vos actions se synchronisent automatiquement dès que le réseau revient.',
+    description: 'Continuez à travailler sans connexion : vos actions se synchronisent automatiquement dès que le réseau revient.',
     icon: Icons.wifi_off_rounded,
     background: Color(0xFF2563EB),
   ),
   _OnboardingPage(
     title: 'Restez concentré sur l\'essentiel',
-    description:
-        'Filtrez par statut, recherchez instantanément, et gardez une vue claire de votre avancement.',
+    description: 'Filtrez par statut, recherchez instantanément, et gardez une vue claire de votre avancement.',
     icon: Icons.rocket_launch_rounded,
     background: Color(0xFF16A34A),
   ),
@@ -58,9 +55,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Future<void> _finish() async {
     await OnboardingPrefs.markSeen();
     if (!mounted) return;
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-    );
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
   }
 
   @override
@@ -70,9 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Stack(
         children: [
           LiquidSwipe(
-            pages: [
-              for (final page in _pages) _OnboardingPageView(page: page),
-            ],
+            pages: [for (final page in _pages) _OnboardingPageView(page: page)],
             liquidController: _controller,
             enableLoop: false,
             enableSideReveal: true,
@@ -108,7 +103,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           height: 8,
                           width: i == _page ? 24 : 8,
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: i == _page ? 1 : 0.5),
+                            color: Colors.white.withValues(
+                              alpha: i == _page ? 1 : 0.5,
+                            ),
                             borderRadius: BorderRadius.circular(AppRadius.pill),
                           ),
                         ),
@@ -117,16 +114,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(height: AppSpacing.lg),
                   if (isLast)
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-                      child: FilledButton(
-                        onPressed: _finish,
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: _pages.last.background,
-                        ),
-                        child: const Text('Commencer'),
-                      ).animate().fadeIn(duration: 300.ms).scale(
-                          begin: const Offset(0.9, 0.9), end: const Offset(1, 1)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xl,
+                      ),
+                      child:
+                          FilledButton(
+                                onPressed: _finish,
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: _pages.last.background,
+                                ),
+                                child: const Text('Commencer'),
+                              )
+                              .animate()
+                              .fadeIn(duration: 300.ms)
+                              .scale(
+                                begin: const Offset(0.9, 0.9),
+                                end: const Offset(1, 1),
+                              ),
                     ),
                 ],
               ),
@@ -153,32 +158,39 @@ class _OnboardingPageView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 120,
-            height: 120,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.15),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(page.icon, size: 56, color: Colors.white),
-          ).animate().fadeIn(duration: 400.ms).scale(
-              begin: const Offset(0.7, 0.7), end: const Offset(1, 1)),
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(page.icon, size: 56, color: Colors.white),
+              )
+              .animate()
+              .fadeIn(duration: 400.ms)
+              .scale(begin: const Offset(0.7, 0.7), end: const Offset(1, 1)),
           const SizedBox(height: AppSpacing.xl),
           Text(
-            page.title,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                page.title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
                 ),
-          ).animate().fadeIn(delay: 100.ms, duration: 400.ms).slideY(begin: 0.2, end: 0),
+              )
+              .animate()
+              .fadeIn(delay: 100.ms, duration: 400.ms)
+              .slideY(begin: 0.2, end: 0),
           const SizedBox(height: AppSpacing.md),
           Text(
-            page.description,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Colors.white.withValues(alpha: 0.9),
-                ),
-          ).animate().fadeIn(delay: 200.ms, duration: 400.ms).slideY(begin: 0.2, end: 0),
+                page.description,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge
+                    ?.copyWith(color: Colors.white.withValues(alpha: 0.9)),
+              )
+              .animate()
+              .fadeIn(delay: 200.ms, duration: 400.ms)
+              .slideY(begin: 0.2, end: 0),
         ],
       ),
     );

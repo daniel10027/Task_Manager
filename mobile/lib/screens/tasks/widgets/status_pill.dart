@@ -6,7 +6,11 @@ import '../../../theme/app_spacing.dart';
 
 /// Live, animated online/offline status pill shown in the app bar.
 class StatusPill extends StatelessWidget {
-  const StatusPill({super.key, required this.isOnline, required this.pendingCount});
+  const StatusPill({
+    super.key,
+    required this.isOnline,
+    required this.pendingCount,
+  });
 
   final bool isOnline;
   final int pendingCount;
@@ -18,14 +22,17 @@ class StatusPill extends StatelessWidget {
     final label = isOnline
         ? 'En ligne'
         : pendingCount > 0
-            ? 'Hors ligne — synchronisation en attente ($pendingCount)'
-            : 'Hors ligne — synchronisation en attente';
+        ? 'Hors ligne — synchronisation en attente ($pendingCount)'
+        : 'Hors ligne — synchronisation en attente';
 
     return AnimatedContainer(
       key: ValueKey('status_pill_${isOnline}_$pendingCount'),
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 6),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: 6,
+      ),
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(AppRadius.pill),
@@ -39,10 +46,8 @@ class StatusPill extends StatelessWidget {
             child: Text(
               label,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: fg,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(context).textTheme.labelLarge
+                  ?.copyWith(color: fg, fontWeight: FontWeight.w600),
             ),
           ),
         ],
@@ -67,6 +72,11 @@ class _Dot extends StatelessWidget {
     if (!animate) return dot;
     return dot
         .animate(onPlay: (c) => c.repeat(reverse: true))
-        .scaleXY(begin: 0.7, end: 1.2, duration: 900.ms, curve: Curves.easeInOut);
+        .scaleXY(
+          begin: 0.7,
+          end: 1.2,
+          duration: 900.ms,
+          curve: Curves.easeInOut,
+        );
   }
 }

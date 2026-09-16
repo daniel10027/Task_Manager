@@ -8,7 +8,11 @@ class TaskFormResult {
   final String description;
   final TaskStatus status;
 
-  const TaskFormResult({required this.title, required this.description, required this.status});
+  const TaskFormResult({
+    required this.title,
+    required this.description,
+    required this.status,
+  });
 }
 
 /// Modal bottom sheet, rounded top corners, used for both creating and
@@ -43,7 +47,9 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.task?.title ?? '');
-    _descriptionController = TextEditingController(text: widget.task?.description ?? '');
+    _descriptionController = TextEditingController(
+      text: widget.task?.description ?? '',
+    );
     _status = widget.task?.status ?? TaskStatus.todo;
   }
 
@@ -56,11 +62,13 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
 
   void _save() {
     if (!_formKey.currentState!.validate()) return;
-    Navigator.of(context).pop(TaskFormResult(
-      title: _titleController.text.trim(),
-      description: _descriptionController.text.trim(),
-      status: _status,
-    ));
+    Navigator.of(context).pop(
+      TaskFormResult(
+        title: _titleController.text.trim(),
+        description: _descriptionController.text.trim(),
+        status: _status,
+      ),
+    );
   }
 
   @override
@@ -74,10 +82,16 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(AppRadius.xl),
+            ),
           ),
           padding: const EdgeInsets.fromLTRB(
-              AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.lg),
+            AppSpacing.lg,
+            AppSpacing.sm,
+            AppSpacing.lg,
+            AppSpacing.lg,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -125,18 +139,31 @@ class _TaskFormSheetState extends State<TaskFormSheet> {
                 const SizedBox(height: AppSpacing.sm),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('Statut', style: Theme.of(context).textTheme.labelLarge),
+                  child: Text(
+                    'Statut',
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 SegmentedButton<TaskStatus>(
                   key: const Key('task_form_status_selector'),
                   segments: const [
-                    ButtonSegment(value: TaskStatus.todo, label: Text('À faire')),
-                    ButtonSegment(value: TaskStatus.inProgress, label: Text('En cours')),
-                    ButtonSegment(value: TaskStatus.done, label: Text('Terminé')),
+                    ButtonSegment(
+                      value: TaskStatus.todo,
+                      label: Text('À faire'),
+                    ),
+                    ButtonSegment(
+                      value: TaskStatus.inProgress,
+                      label: Text('En cours'),
+                    ),
+                    ButtonSegment(
+                      value: TaskStatus.done,
+                      label: Text('Terminé'),
+                    ),
                   ],
                   selected: {_status},
-                  onSelectionChanged: (selection) => setState(() => _status = selection.first),
+                  onSelectionChanged: (selection) =>
+                      setState(() => _status = selection.first),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 Row(

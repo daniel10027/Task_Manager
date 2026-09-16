@@ -13,7 +13,10 @@ class TaskListShimmer extends StatelessWidget {
     final base = Theme.of(context).colorScheme.surfaceContainerHighest;
     final highlight = Theme.of(context).colorScheme.surface;
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.sm,
+      ),
       itemCount: 6,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(

@@ -7,7 +7,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 /// rest of the app can react to.
 class ConnectivityService {
   ConnectivityService({Connectivity? connectivity})
-      : _connectivity = connectivity ?? Connectivity() {
+    : _connectivity = connectivity ?? Connectivity() {
     _sub = _connectivity.onConnectivityChanged.listen((results) {
       _controller.add(_isOnline(results));
     });
@@ -24,9 +24,9 @@ class ConnectivityService {
 
   /// Stream of online/offline transitions.
   Stream<bool> get onStatusChange => _controller.stream.map((online) {
-        _lastKnown = online;
-        return online;
-      });
+    _lastKnown = online;
+    return online;
+  });
 
   /// Best-known current status, synchronous. Call [refresh] at startup to
   /// prime it before relying on this.

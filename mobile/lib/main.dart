@@ -31,7 +31,11 @@ Future<void> main() async {
   final connectivity = ConnectivityService();
   final taskCache = TaskCache();
   final pendingOpsQueue = PendingOpsQueue();
-  final syncService = SyncService(taskApi: taskApi, queue: pendingOpsQueue, cache: taskCache);
+  final syncService = SyncService(
+    taskApi: taskApi,
+    queue: pendingOpsQueue,
+    cache: taskCache,
+  );
   final taskRepository = TaskRepository(
     taskApi: taskApi,
     connectivity: connectivity,
@@ -40,13 +44,15 @@ Future<void> main() async {
     syncService: syncService,
   );
 
-  runApp(TaskManagerApp(
-    secureStorage: secureStorage,
-    authApi: authApi,
-    connectivity: connectivity,
-    pendingOpsQueue: pendingOpsQueue,
-    taskRepository: taskRepository,
-  ));
+  runApp(
+    TaskManagerApp(
+      secureStorage: secureStorage,
+      authApi: authApi,
+      connectivity: connectivity,
+      pendingOpsQueue: pendingOpsQueue,
+      taskRepository: taskRepository,
+    ),
+  );
 }
 
 class TaskManagerApp extends StatelessWidget {
@@ -71,7 +77,8 @@ class TaskManagerApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) =>
-              AuthProvider(authApi: authApi, secureStorage: secureStorage)..restoreSession(),
+              AuthProvider(authApi: authApi, secureStorage: secureStorage)
+                ..restoreSession(),
         ),
         ChangeNotifierProvider(
           create: (_) => TaskListProvider(

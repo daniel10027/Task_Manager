@@ -18,10 +18,12 @@ class TaskListProvider extends ChangeNotifier {
     required TaskRepository repository,
     required ConnectivityService connectivity,
     required PendingOpsQueue pendingOpsQueue,
-  })  : _repository = repository,
-        _connectivity = connectivity,
-        _pendingOpsQueue = pendingOpsQueue {
-    _connectivitySub = _connectivity.onStatusChange.listen(_onConnectivityChanged);
+  }) : _repository = repository,
+       _connectivity = connectivity,
+       _pendingOpsQueue = pendingOpsQueue {
+    _connectivitySub = _connectivity.onStatusChange.listen(
+      _onConnectivityChanged,
+    );
     _pendingOpsSub = _pendingOpsQueue.watch().listen((_) => notifyListeners());
   }
 
@@ -63,7 +65,10 @@ class TaskListProvider extends ChangeNotifier {
     errorMessage = null;
     notifyListeners();
     try {
-      tasks = await _repository.fetchTasks(status: filterStatus, search: search);
+      tasks = await _repository.fetchTasks(
+        status: filterStatus,
+        search: search,
+      );
       loadState = ListLoadState.loaded;
     } on ApiException catch (e) {
       errorMessage = e.message;
@@ -107,7 +112,12 @@ class TaskListProvider extends ChangeNotifier {
     required String description,
     required TaskStatus status,
   }) async {
-    await _repository.updateTask(task, title: title, description: description, status: status);
+    await _repository.updateTask(
+      task,
+      title: title,
+      description: description,
+      status: status,
+    );
     await load(silent: true);
   }
 

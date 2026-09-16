@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../models/task.dart';
 
 class StatusFilterChips extends StatelessWidget {
-  const StatusFilterChips({super.key, required this.selected, required this.onChanged});
+  const StatusFilterChips({
+    super.key,
+    required this.selected,
+    required this.onChanged,
+  });
 
   final TaskStatus? selected;
   final ValueChanged<TaskStatus?> onChanged;

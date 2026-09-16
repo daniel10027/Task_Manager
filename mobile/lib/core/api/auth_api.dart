@@ -14,11 +14,10 @@ class AuthApi {
     required String fullName,
   }) async {
     try {
-      final response = await _dio.post('/api/auth/register', data: {
-        'email': email,
-        'password': password,
-        'fullName': fullName,
-      });
+      final response = await _dio.post(
+        '/api/auth/register',
+        data: {'email': email, 'password': password, 'fullName': fullName},
+      );
       return AuthResponse.fromJson(response.data as Map<String, dynamic>);
     } catch (e) {
       throw toApiException(e);
@@ -30,10 +29,10 @@ class AuthApi {
     required String password,
   }) async {
     try {
-      final response = await _dio.post('/api/auth/login', data: {
-        'email': email,
-        'password': password,
-      });
+      final response = await _dio.post(
+        '/api/auth/login',
+        data: {'email': email, 'password': password},
+      );
       return AuthResponse.fromJson(response.data as Map<String, dynamic>);
     } catch (e) {
       throw toApiException(e);

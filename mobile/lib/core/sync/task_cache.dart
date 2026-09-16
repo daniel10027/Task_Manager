@@ -8,8 +8,8 @@ import '../storage/hive_boxes.dart';
 class TaskCache {
   Box<Task> get _box => HiveBoxes.tasksBox;
 
-  List<Task> get all => _box.values.toList()
-    ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  List<Task> get all =>
+      _box.values.toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
   Task? get(String cacheKey) => _box.get(cacheKey);
 

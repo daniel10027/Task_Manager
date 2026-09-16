@@ -32,15 +32,18 @@ void main() {
     taskRepository = MockTaskRepository();
     connectivity = MockConnectivityService();
     pendingOpsQueue = MockPendingOpsQueue();
-    when(() => connectivity.onStatusChange).thenAnswer((_) => const Stream.empty());
+    when(() => connectivity.onStatusChange)
+        .thenAnswer((_) => const Stream.empty());
     when(() => connectivity.isOnline).thenReturn(true);
     when(() => connectivity.refresh()).thenAnswer((_) async => true);
     when(() => pendingOpsQueue.watch()).thenAnswer((_) => const Stream.empty());
     when(() => pendingOpsQueue.pendingCount).thenReturn(0);
-    when(() => taskRepository.fetchTasks(
-          status: any(named: 'status'),
-          search: any(named: 'search'),
-        )).thenAnswer((_) async => []);
+    when(
+      () => taskRepository.fetchTasks(
+        status: any(named: 'status'),
+        search: any(named: 'search'),
+      ),
+    ).thenAnswer((_) async => []);
     when(() => taskRepository.sync()).thenAnswer((_) async {});
   });
 
@@ -48,7 +51,8 @@ void main() {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider(authApi: authApi, secureStorage: secureStorage),
+          create: (_) =>
+              AuthProvider(authApi: authApi, secureStorage: secureStorage),
         ),
         ChangeNotifierProvider<TaskListProvider>(
           create: (_) => TaskListProvider(
@@ -65,54 +69,98 @@ void main() {
   testWidgets('shows a validation error for an invalid email', (tester) async {
     await tester.pumpWidget(buildApp());
 
-    await tester.enterText(find.byKey(const Key('login_email_field')), 'not-an-email');
-    await tester.enterText(find.byKey(const Key('login_password_field')), 'password123');
+    await tester.enterText(
+      find.byKey(const Key('login_email_field')),
+      'not-an-email',
+    );
+    await tester.enterText(
+      find.byKey(const Key('login_password_field')),
+      'password123',
+    );
     await tester.tap(find.byKey(const Key('login_submit_button')));
     await tester.pump();
 
     expect(find.text('Email invalide'), findsOneWidget);
-    verifyNever(() => authApi.login(email: any(named: 'email'), password: any(named: 'password')));
+    verifyNever(
+      () => authApi.login(
+        email: any(named: 'email'),
+        password: any(named: 'password'),
+      ),
+    );
   });
 
-  testWidgets('shows a validation error for a too-short password', (tester) async {
+  testWidgets('shows a validation error for a too-short password', (
+    tester,
+  ) async {
     await tester.pumpWidget(buildApp());
 
-    await tester.enterText(find.byKey(const Key('login_email_field')), 'jane@doe.com');
-    await tester.enterText(find.byKey(const Key('login_password_field')), 'short');
+    await tester.enterText(
+      find.byKey(const Key('login_email_field')),
+      'jane@doe.com',
+    );
+    await tester.enterText(
+      find.byKey(const Key('login_password_field')),
+      'short',
+    );
     await tester.tap(find.byKey(const Key('login_submit_button')));
     await tester.pump();
 
     expect(find.text('Minimum 8 caractères'), findsOneWidget);
-    verifyNever(() => authApi.login(email: any(named: 'email'), password: any(named: 'password')));
-  });
-
-  testWidgets('submits valid credentials and calls the API exactly once', (tester) async {
-    when(() => authApi.login(email: 'jane@doe.com', password: 'Sup3rSecret!')).thenAnswer(
-      (_) async => const AuthResponse(
-        token: 'jwt-token',
-        user: User(id: 1, email: 'jane@doe.com', fullName: 'Jane Doe'),
+    verifyNever(
+      () => authApi.login(
+        email: any(named: 'email'),
+        password: any(named: 'password'),
       ),
     );
+  });
+
+  testWidgets('submits valid credentials and calls the API exactly once', (
+    tester,
+  ) async {
+    when(() => authApi.login(email: 'jane@doe.com', password: 'Sup3rSecret!'))
+        .thenAnswer(
+          (_) async => const AuthResponse(
+            token: 'jwt-token',
+            user: User(id: 1, email: 'jane@doe.com', fullName: 'Jane Doe'),
+          ),
+        );
 
     await tester.pumpWidget(buildApp());
 
-    await tester.enterText(find.byKey(const Key('login_email_field')), 'jane@doe.com');
-    await tester.enterText(find.byKey(const Key('login_password_field')), 'Sup3rSecret!');
+    await tester.enterText(
+      find.byKey(const Key('login_email_field')),
+      'jane@doe.com',
+    );
+    await tester.enterText(
+      find.byKey(const Key('login_password_field')),
+      'Sup3rSecret!',
+    );
     await tester.tap(find.byKey(const Key('login_submit_button')));
     await settle(tester);
 
-    verify(() => authApi.login(email: 'jane@doe.com', password: 'Sup3rSecret!')).called(1);
+    verify(() => authApi.login(email: 'jane@doe.com', password: 'Sup3rSecret!'))
+        .called(1);
     expect(find.byType(TaskListScreen), findsOneWidget);
   });
 
   testWidgets('surfaces an API error via a SnackBar', (tester) async {
-    when(() => authApi.login(email: any(named: 'email'), password: any(named: 'password')))
-        .thenThrow(const ApiException('Identifiants invalides'));
+    when(
+      () => authApi.login(
+        email: any(named: 'email'),
+        password: any(named: 'password'),
+      ),
+    ).thenThrow(const ApiException('Identifiants invalides'));
 
     await tester.pumpWidget(buildApp());
 
-    await tester.enterText(find.byKey(const Key('login_email_field')), 'jane@doe.com');
-    await tester.enterText(find.byKey(const Key('login_password_field')), 'Sup3rSecret!');
+    await tester.enterText(
+      find.byKey(const Key('login_email_field')),
+      'jane@doe.com',
+    );
+    await tester.enterText(
+      find.byKey(const Key('login_password_field')),
+      'Sup3rSecret!',
+    );
     await tester.tap(find.byKey(const Key('login_submit_button')));
     await tester.pumpAndSettle();
 
