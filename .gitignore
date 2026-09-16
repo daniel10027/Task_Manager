@@ -32,6 +32,9 @@ mobile/android/local.properties
 mobile/*.iml
 mobile/.idea/
 
+# --- Local tooling state ---
+.claude/
+
 # --- IDE ---
 .idea/
 .vscode/
